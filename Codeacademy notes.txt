@@ -1,0 +1,944 @@
+can use either print or puts to log to the console, difference being that puts auto starts a new line in the console after that statement
+
+--- methods --- 
+.length
+ex 
+"garrett".length #==> 7
+
+.reverse
+
+ex
+
+"garrett".reverse #==> tterrag
+
+.upcase
+
+"garrett".upcase #==> GARRETT  
+
+.downcase
+
+"GARRETT".downcase #==> garrett
+
+.capitalize
+^makes first letter of a string uppercase and rest of string lowercase
+
+use ! at the end of method to alter the value of a variable ex. answer.capitalize!
+
+.split
+ex. to divide the user’s input into individual words.
+
+Ruby has a built-in method for this called .split; it takes in a string and returns an array. If we pass it a bit of text in parentheses, .split will divide the string wherever it sees that bit of text, called a delimiter. For example,
+
+text.split(",")
+tells Ruby to split up the string text whenever it sees a comma.
+
+.to_s
+converts a number from a string
+ex
+num = 5
+num.to_s #==> '5'
+
+.sort 
+ie put in order
+ex
+my_array = [3, 4, 8, 7, 1, 6, 5, 9, 2]
+puts my_array.sort!
+#==> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+.select
+ie. filter a hash for values that meet certain criteria
+grades = { alice: 100,
+  bob: 92,
+  chris: 95,
+  dave: 97
+}
+ 
+grades.select { |name, grade| grade <  97 }
+# ==> { :bob => 92, :chris => 95 }
+ 
+grades.select { |k, v| k == :alice }
+# ==> { :alice => 100 }
+--
+Ruby includes two hash methods, .each_key and .each_value, that do exactly what you’d expect:
+
+my_hash = { one: 1, two: 2, three: 3 }
+ 
+my_hash.each_key { |k| print k, " " }
+# ==> one two three
+ 
+my_hash.each_value { |v| print v, " " }
+# ==> 1 2 3
+
+-- .include? method -- 
+
+For the if half of our branch, we want to check whether the user’s input contains an "s".
+
+if string_to_check.include? "substring"
+
+We can do that using Ruby’s .include? method, which evaluates to true if it finds what it’s looking for and false otherwise.
+
+(As a general rule, Ruby methods that end with ? evaluate to the boolean values true or false.)
+
+- gsub method -- 
+
+When we find "s", we want Ruby to replace every instance of "s" it finds with "th". We can do this with the .gsub! method, which stands for global substitution.
+
+The syntax looks like this:
+
+string_to_change.gsub!(/s/, "th")
+When we get to later lessons, we’ll explain why the /s/ has to be between slashes instead of between quotes. Note: you cannot put a space between gsub! and the bit in parentheses.
+
+Remember, you want the ! at the end of the method name so that Ruby will change the string in-place.
+
+
+--- comments ---
+are denoted with # (single line comments)
+for multiline comments use
+=begin
+comments...
+comments...
+=end 
+
+--- chaining methods ---
+ex 
+name = 'garrett'.upcase.reverse #==> TTERRAG 
+
+-- variables in strings (aka string interpolation) -- 
+
+dont need to use `` (in fact, cant use), like with JS
+instead just use '' or ""
+ex 
+"Your name is #{first_name} and you're from #{city}, #{state}"
+
+-- prompting a user example --
+
+use the gets.chomp method 
+gets is the method that gets an input from the user; and chomp removes the extra line that would be there otherwise
+
+ex. 
+print "Whats your first name?"
+first_name = gets.chomp
+
+#==> What's your first name? [user inputs]
+    first_name
+
+-- environment -- 
+environment (the collection of all variables and their values that exist in the program at a given time)
+
+-- example of "control flow" ---
+
+print "Integer please: " 
+user_num = Integer(gets.chomp)
+
+if user_num < 0
+  puts "You picked a negative integer!"
+elsif user_num > 0
+  puts "You picked a positive integer!"
+else
+  puts "You picked zero!"
+end
+
+-- if statements --
+
+note that in ruby, dont need {} and it is elsif [rather than elseif in JS]
+
+-- unless statements --
+
+opposite of if statements in ruby
+ex
+hungry = false
+
+unless hungry
+  puts "I'm writing Ruby programs!"
+else
+  puts "Time to eat!"
+end
+#==> I'm writing Ruby programs!
+
+-- operators -- 
+
+= is the assignment operator ex. student_age = 28
+== is a comparator, aka relational operator ex. if 28 == 28
+!= is not equal comparator
+
+<
+>
+>=
+<=
+&&
+||
+!
+
+||= [THIS IS A CONDITIONAL ASSIGNMENT, IE WILL ASSING VARIABLE THE NEW VALUE ONLY IF IT DOESNT ALREADY HAVE A VALUE]
+
+(all of the 7 operators above operate in same manner as in JS)
+--
+The Combined Comparison Operator
+We can also use a new operator called the combined comparison operator to compare two Ruby objects. The combined comparison operator looks like this: <=>. It returns 0 if the first operand (item to be compared) equals the second, 1 if the first operand is greater than the second, and -1 if the first operand is less than the second.
+
+
+
+-- until loop --
+
+complement to the while loop (similimar to how unless is opposite of if)
+
+ex
+i = 0
+until i == 6
+  i = i + 1
+end
+puts i
+
+-- note about assignment operators and incrementing --
+
+ruby does NOT have ++ or -- like in JS... instead use += 1 or -= 1
+
+-- how for loops work in ruby -- 
+
+for num in 1...10
+  puts num
+end
+#==> 
+1 
+2
+3
+4
+5
+6
+7
+8
+9
+
+ie.... “For the variable num in the range 1 to 10, do the following.” The following was to puts "#{num}", so as num took on the values of 1 to 9, one at a time, those values were printed to the console.The reason this program counted to 9 and not 10 was that we used three dots in the range; this tells Ruby to exclude the final number in the count: for num in 1...10 means “go up to but don’t include 10.” If we use two dots, this tells Ruby to include the highest number in the range.
+
+ex2
+
+i = 0
+loop do
+  i += 1
+  print "#{i}"
+  break if i > 5
+end
+#==>
+1
+2
+3
+4
+5
+
+The next keyword can be used to skip over certain steps in the loop. For instance, if we don’t want to print out the even numbers, we can write:
+for i in 1..5
+  next if i % 2 == 0
+  print i
+end
+#==> 1, 3, 5
+
+ex3
+
+array = [1,2,3,4,5]
+
+array.each do |x|
+  x += 10
+  print "#{x}" // note that this MUST BE IN DOUBLE QUOTES TO WORK!!
+end
+#==>11,12,13,14,15
+
+ex 4
+
+The .times Iterator
+The .times method is like a super compact for loop: it can perform a task on each item in an object a specified number of times.
+
+For example, if we wanted to print out "Chunky bacon!" ten times, we might type
+
+10.times { print "Chunky bacon!" }
+
+
+--
+4 ways to get same result 
+
+i = 0
+while i < 50 do
+  i += 1
+  print i
+end  
+
+i = 0
+until i == 50 do
+  i += 1
+  print i
+end  
+
+for i in 1..50
+  print i
+end  
+
+i = 0
+loop do
+  i +=1
+  print i
+  break if i == 50
+end
+
+--- arrays ---
+looks v similar to JS
+array = [5, 7, 9, 2, 0]
+array[2]
+# returns "9", since "9"
+# is at index 2
+
+-- hashes --
+Hashes are sort of like JavaScript objects or Python dictionaries. If you haven’t studied those languages, all you need to know that a hash is a collection of key-value pairs. Hash syntax looks like this:
+
+hash = {
+  key1 => value1,
+  key2 => value2,
+  key3 => value3
+}
+
+You can also create a hash using Hash.new, like so:
+
+my_hash = Hash.new
+Setting a variable equal to Hash.new creates a new, empty hash; it’s the same as setting the variable equal to empty curly braces ({}).
+
+Adding to a Hash
+We can add to a hash two ways: if we created it using literal notation, we can simply add a new key-value pair directly between the curly braces. If we used Hash.new, we can add to the hash using bracket notation:
+
+pets = Hash.new
+pets["Stevie"] = "cat"
+# Adds the key "Stevie" with the
+# value "cat" to the hash
+
+pets = Hash.new
+pets['dog'] = 'stella'
+print pets['dog'] #==> stella 
+
+-- iterating over array --
+numbers = [1, 2, 3, 4, 5]
+numbers.each { |element| puts element }
+In the example above, we create an array called numbers with 5 elements.
+Then we say, “Take this array and for each element, print it to the console.” As usual, we can use any placeholder name for the bit between two | | characters.
+
+--- iterating over nested arrays --
+
+s = [["ham", "swiss"], ["turkey", "cheddar"], ["roast beef", "gruyere"]]
+s.each do | sub_array |
+  sub_array.each do |y|
+    puts y
+   end
+ end   
+
+ #==>
+ ham 
+ swiss
+ turkey
+ cheddar
+ roast beef
+ gruyere
+
+ -- iterating over hashes -- 
+
+ secret_identities = {
+  "The Batman" => "Bruce Wayne",
+  "Superman" => "Clark Kent",
+  "Wonder Woman" => "Diana Prince",
+  "Freakazoid" => "Dexter Douglas"
+}
+secret_identities.each do |key, value| 
+  puts "#{key}: #{value}"
+end  
+
+#==>
+The Batman: Bruce Wayne
+Superman: Clark Kent
+Wonder Woman: Diana Prince
+Freakazoid: Dexter Douglas
+
+lunch_order = {
+  "Ryan" => "wonton soup",
+  "Eric" => "hamburger",
+  "Jimmy" => "sandwich",
+  "Sasha" => "salad",
+  "Cole" => "taco"
+}
+
+lunch_order.each do |key, value|
+  puts "#{value}"
+end  
+#==>
+wonton soup
+hamburger
+sandwich
+salad
+taco
+
+---
+CREATE A HISTOGRAM
+What You'll Be Building
+In this project, we’ll write a program that takes a user’s input, then builds a hash from that input. Each key in the hash will be a word from the user; each value will be the number of times that word occurs. For example, if our program gets the string “the rain in Spain falls mainly on the plain,” it will return
+
+the 2
+falls 1
+on 1
+mainly 1
+in 1
+rain 1
+plain 1
+Spain 1
+A visual representation of data like this is called a histogram.
+
+puts "Text please: "
+text = gets.chomp
+
+words = text.split(" ")
+frequencies = Hash.new(0)
+words.each { |word| frequencies[word] += 1 }
+frequencies = frequencies.sort_by {|a, b| b }
+frequencies.reverse!
+frequencies.each { |word, frequency| puts word + " " + frequency.to_s }
+
+
+Output:
+Text please: 
+my oh my oh my this will be interesting
+
+my 3
+oh 2
+interesting 1
+be 1
+will 1
+this 1
+
+-- methods (ie what functions are in JS) ---
+Method Syntax
+Methods are defined using the keyword def (short for “define”). Methods have three parts:
+
+The header, which includes the def keyword, the name of the method, and any arguments the method takes. (We’ll get to arguments in the next section)
+The body, which is the code block that describes the procedures the method carries out. The body is indented two spaces by convention (as with for, if, elsif, and else statements)
+The method ends with the end keyword.
+Here’s an example of what the syntax would look like for a simple function, welcome, that just prints “Welcome to Ruby!” to the console:
+
+def welcome
+  puts "Welcome to Ruby!"
+end
+
+ex.
+
+def prime(n)
+  puts "That's not an integer." unless n.is_a? Integer
+  is_prime = true
+  for i in 2..n-1
+    if n % i == 0
+      is_prime = false
+    end
+  end
+  if is_prime
+    puts "#{n} is prime!"
+  else
+    puts "#{n} is not prime."
+  end
+end
+
+prime(2)
+prime(9)
+prime(11)
+prime(51)
+prime(97)
+#==>
+2 is prime!
+9 is not prime.
+11 is prime!
+51 is not prime.
+97 is prime!
+
+--
+Parameters and Arguments
+If a method takes arguments, we say it accepts or expects those arguments. We might define a function, square, like so:
+
+def square(n)
+  puts n ** 2
+end
+and call it like this:
+
+square(12)
+# ==> prints "144"
+The argument is the piece of code you actually put between the method’s parentheses when you call it, and the parameter is the name you put between the method’s parentheses when you define it. For instance, when we defined square above, we gave it the parameter n (for “number”) and passed it the argument 12 when we called it.
+
+You can think of parameters as placeholders the method definition gives to arguments since it doesn’t know ahead of time exactly what argument it’s going to get.
+
+Parentheses are usually optional in Ruby, but it’s a good idea to put your parameters and arguments in parentheses for readability.
+
+splat arguments -- Splat arguments are arguments preceded by a *, which tells the program that the method can receive one or more arguments.
+
+--
+Blocks Are Like Nameless Methods
+Most methods that you’ve worked with have defined names that either you or someone else gave them (i.e. [array].sort(), “string”.downcase(), and so on). You can think of blocks as a way of creating methods that don’t have a name. (These are similar to anonymous functions in JavaScript or lambdas in Python.)
+
+Blocks can be defined with either the keywords do and end or with curly braces ({}).
+
+ex. 
+my_array = [1, 2, 3, 4, 5]
+
+my_array.each { |x| puts x * x}
+
+#==>
+1
+4
+9
+16
+25
+
+-- 
+ex method vs block w same result
+
+# method that capitalizes a word
+def capitalize(string) 
+  puts "#{string[0].upcase}#{string[1..-1]}"
+end
+
+capitalize("ryan") # prints "Ryan"
+capitalize("jane") # prints "Jane"
+
+# block that capitalizes each string in the array
+["ryan", "jane"].each {|string| puts "#{string[0].upcase}#{string[1..-1]}"} # prints "Ryan", then "Jane"
+
+--- sorting --- 
+
+books = ["Charlie and the Chocolate Factory", "War and Peace", "Utopia", "A Brief History of Time", "A Wrinkle in Time"]
+
+# To sort our books in ascending order, in-place
+puts books.sort! { |firstBook, secondBook| firstBook <=> secondBook }
+
+# Sort your books in descending order, in-place below
+puts books.sort! { |secondBook, firstBook| firstBook <=> secondBook}
+
+#==>
+["A Brief History of Time", "A Wrinkle in Time", "Charlie and the Chocolate Factory", "Utopia", "War and Peace"]
+["War and Peace", "Utopia", "Charlie and the Chocolate Factory", "A Wrinkle in Time", "A Brief History of Time"]
+--
+another way to sort ascending and descending .. 
+
+def alphabetize(arr, rev=false)
+  if rev
+    arr.sort { |item1, item2| item2 <=> item1 }
+  else
+    arr.sort { |item1, item2| item1 <=> item2 }
+  end
+end
+
+books = ["Heart of Darkness", "Code Complete", "The Lorax", "The Prophet", "Absalom, Absalom!"]
+
+puts "A-Z: #{alphabetize(books)}"
+puts "Z-A: #{alphabetize(books, true)}"
+#==>
+A-Z: ["Absalom, Absalom!", "Code Complete", "Heart of Darkness", "The Lorax", "The Prophet"]
+Z-A: ["The Prophet", "The Lorax", "Heart of Darkness", "Code Complete", "Absalom, Absalom!"]
+
+--- hashes, in depth ----
+
+HASHES AND SYMBOLS
+The Story So Far
+Recall that hashes are collections of key-value pairs, where a unique key is associated with some value. For example:
+
+breakfast = { 
+  "bacon" => "tasty",
+  "eggs" => "tasty",
+  "oatmeal" => "healthy",
+  "OJ" => "juicy"
+}
+Remember that keys must be unique, but values can repeat. That’s why we can have more than one key share the value “tasty.”)
+
+We can create hashes several ways, but two of the most popular are
+
+hash literal notation:
+new_hash = { "one" => 1 }
+
+and
+
+2. hash constructor notation:
+new_hash = Hash.new
+
+We can also iterate over hashes using the .each method. For example, we could do
+
+my_hash.each do |key, value|
+  puts my_hash[key]
+end
+
+This will print out a list of values from my_hash, each on its own line. // note that is instead wrote puts key then that would log all the keys instead
+
+Nil: a Formal Introduction
+What happens if you try to access a key that doesn’t exist, though?
+
+In many languages, you’ll get an error of some kind. Not so in Ruby: you’ll instead get the special value nil.
+
+Along with false, nil is one of two non-true values in Ruby. (Every other object is regarded as “truthy,” meaning that if you were to type if 2 or if "bacon", the code in that if statement would be run.)
+
+It’s important to realize that false and nil are not the same thing: false means “not true,” while nil is Ruby’s way of saying “nothing at all.”
+
+Setting Your Own Default
+You don’t have to settle for nil as a default value, however. If you create your hash using the Hash.new syntax, you can specify a default like so:
+
+my_hash = Hash.new("Trady Blix")
+Now if you try to access a nonexistent key in my_hash, you’ll get "Trady Blix" as a result.
+
+-- symbols --
+
+use symbols as hash keys, ex.
+
+menagerie = { :foxes => 2,
+  :giraffe => 1,
+  :weezards => 17,
+  :elves => 1,
+  :canaries => 4,
+  :ham => 1
+}
+
+Symbols make good hash keys for a few reasons:
+
+1. They’re immutable, meaning they can’t be changed once they’re created;
+2. Only one copy of any symbol exists at a given time, so they save memory;
+3. Symbol-as-keys are faster than strings-as-keys because of the above two reasons.
+
+--
+Converting Between Symbols and Strings
+
+:sasquatch.to_s
+# ==> "sasquatch"
+ 
+"sasquatch".to_sym 
+# ==> :sasquatch
+
+OR could do "sasquatch".intern which does the same thing
+
+--
+old way to write keys/value was :symbol => value, new way is very similar to JS with symbol: value
+The Hash Rocket Has Landed
+However, the hash syntax changed in Ruby 1.9. Just when you were getting comfortable!
+
+The good news is that the changed syntax is easier to type than the old hash rocket syntax, and if you’re used to JavaScript objects or Python dictionaries, it will look very familiar:
+
+new_hash = { 
+  one: 1,
+  two: 2,
+  three: 3
+}
+The two changes are:
+
+You put the colon at the end of the symbol, not at the beginning;
+You don’t need the hash rocket anymore.
+It’s important to note that even though these keys have colons at the end instead of the beginning, they’re still symbols!
+
+puts new_hash
+# => { :one => 1, :two => 2, :three => 3 }
+From now on, we’ll use the 1.9 hash syntax when giving examples or providing default code. You’ll want to be familiar with the hash rocket style when reading other people’s code, which might be older.
+
+--
+movies = {
+  Memento: 3,
+  Primer: 4,
+  Ishtar: 1
+}
+
+puts "What would you like to do?"
+puts "-- Type 'add' to add a movie."
+puts "-- Type 'update' to update a movie."
+puts "-- Type 'display' to display all movies."
+puts "-- Type 'delete' to delete a movie."
+
+choice = gets.chomp.downcase
+case choice
+when 'add'
+  puts "What movie do you want to add?"
+  title = gets.chomp
+  if movies[title.to_sym].nil?
+    puts "What's the rating? (Type a number 0 to 4.)"
+    rating = gets.chomp
+    movies[title.to_sym] = rating.to_i
+    puts "#{title} has been added with a rating of #{rating}."
+  else
+    puts "That movie already exists! Its rating is #{movies[title.to_sym]}."
+  end
+when 'update'
+  puts "What movie do you want to update?"
+  title = gets.chomp
+  if movies[title.to_sym].nil?
+    puts "Movie not found!"
+  else
+    puts "What's the new rating? (Type a number 0 to 4.)"
+    rating = gets.chomp
+    movies[title.to_sym] = rating.to_i
+    puts "#{title} has been updated with new rating of #{rating}."
+  end
+when 'display'
+  movies.each do |movie, rating|
+    puts "#{movie}: #{rating}"
+  end
+when 'delete'
+  puts "What movie do you want to delete?"
+  title = gets.chomp
+  if movies[title.to_sym].nil?
+    puts "Movie not found!"
+  else
+    movies.delete(title.to_sym)
+    puts "#{title} has been removed."
+  end
+else
+  puts "Sorry, I didn't understand you."
+end
+
+-- case statment -- 
+
+alternative to if/else
+
+case language
+  when "JS"
+    puts "Websites!"
+  when "Python"
+    puts "Science!"
+  when "Ruby"
+    puts "Web apps!"
+  else
+    puts "I don't know!"
+end
+
+OR 
+
+case language
+  when "JS" then puts "Websites!"
+  when "Python" then puts "Science!"
+  when "Ruby" then puts "Web apps!"
+  else puts "I don't know!"
+end
+
+--
+Ruby’s .to_sym method can convert a string to a symbol, and .to_i will convert a string to an integer.
+
+-- one line if (or unless) statement 
+does not require end
+expression if boolean
+Ruby will expect an expression followed by if followed by a boolean. The order is important. You can do this:
+ex. 
+puts "It's true!" if true
+
+-- ternarys -----
+
+An even more concise version of if/else is the ternary conditional expression. It’s called “ternary” because it takes three arguments: a boolean, an expression to evaluate if the boolean is true, and an expression to evaluate if the boolean is false.
+
+The syntax looks like this:
+
+boolean ? Do this if true: Do this if false
+An example might be
+
+puts 3 < 4 ? "3 is less than 4!" : "3 is not less than 4."
+
+
+---- Implicit Return ----- 
+
+We know that methods in Ruby can return values, and we ask a method to return a value when we want to use it in another part of our program. What if we don’t put a return statement in our method definition, though?
+
+For instance, if you don’t tell a JavaScript function exactly what to return, it’ll return undefined. For Python, the default return value is None. But for Ruby, it’s something different: Ruby’s methods will return the result of the last evaluated expression.
+
+This means that if you have a Ruby method like this one:
+
+def add(a,b)
+  return a + b
+end
+You can simply write:
+
+def add(a,b)
+  a + b
+end
+And either way, when you call add(1,1), you’ll get 2.
+
+-- repetition alternatives to for loops --- 
+Sooner or later, you’re going to need to perform a repetitive task in your programs. Many programming languages allow you to do this with a for loop, and while Ruby does include for loops, there are better tools available to us.
+
+If we want to do something a specific number of times, we can use the .times method, like so:
+
+5.times { puts "Odelay!" }
+# Prints 5 "Odelay!"s on separate lines
+If we want to repeat an action for every element in a collection, we can use .each:
+
+[1, 2, 3].each { |x| puts x * 10 }
+# Prints 10, 20, 30 on separate lines
+
+--
+If we know the range of numbers we’d like to include, we can use .upto and .downto. This is a much more Rubyist solution than trying to use a for loop that stops when a counter variable hits a certain value.
+
+We might use .upto to print out a specific range of values:
+
+95.upto(100) { |num| print num, " " }
+# Prints 95 96 97 98 99 100
+and we can use .downto to do the same thing with descending values.
+
+--
+.respond_to? takes a symbol and returns true if an object can receive that method and false otherwise. For example,
+
+[1, 2, 3].respond_to?(:push)
+would return true, since you can call .push on an array object.
+
+ex2. 
+note that .next returns the integer immediately following the integet its called on, ex 4.next will return 5
+
+age = 26
+puts age.respond_to?(:next)
+#=> true
+
+-- the concatenation operator -- 
+Instead of typing out the .push method name, you can simply use <<, the concatenation operator (also known as “the shovel”) to add an element to the end of an array:
+
+[1, 2, 3] << 4
+# ==> [1, 2, 3, 4]
+Good news: it also works on strings! You can do:
+
+"Yukihiro " << "Matsumoto"
+# ==> "Yukihiro Matsumoto"
+
+
+--- .collect ---
+
+The collect method takes a block and applies the expression in the block to every element in an array. Check it out:
+
+my_nums = [1, 2, 3]
+my_nums.collect { |num| num ** 2 }
+# ==> [1, 4, 9]
+If we look at the value of my_nums, though, we’ll see it hasn’t changed:
+
+my_nums
+# ==> [1, 2, 3]
+This is because .collect returns a copy of my_nums, but doesn’t change (or mutate) the original my_nums array. If we want to do that, we can use .collect! with an exclamation point:
+
+my_nums.collect! { |num| num ** 2 }
+# ==> [1, 4, 9]
+my_nums
+# ==> [1, 4, 9]
+
+-- yield --
+allows for new code to be inputted later when method is called
+ex
+def double(num)
+  yield(num)
+end
+
+double(16) {|x| puts x * 2}
+
+--
+----- procs -----
+Remember when we told you that everything is an object in Ruby? Well, we sort of fibbed. Blocks are not objects, and this is one of the very few exceptions to the “everything is an object” rule in Ruby.
+
+Because of this, blocks can’t be saved to variables and don’t have all the powers and abilities of a real object. For that, we’ll need… procs!
+
+You can think of a proc as a “saved” block: just like you can give a bit of code a name and turn it into a method, you can name a block and turn it into a proc. Procs are great for keeping your code DRY, which stands for Don’t Repeat Yourself. With blocks, you have to write your code out each time you need it; with a proc, you write your code once and can use it many times!
+
+multiples_of_3 = Proc.new do |n|
+  n % 3 == 0
+end
+
+print (1..100).to_a.select(&multiples_of_3)
+#==> [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96, 99]
+
+
+Procs are easy to define! You just call Proc.new and pass in the block you want to save. Here’s how we’d create a proc called cube that cubes a number (raises it to the third power):
+
+cube = Proc.new { |x| x ** 3 }
+We can then pass the proc to a method that would otherwise take a block, and we don’t have to rewrite the block over and over!
+
+[1, 2, 3].collect!(&cube)
+# ==> [1, 8, 27]
+[4, 5, 6].map!(&cube)
+# ==> [64, 125, 216]
+(The .collect! and .map! methods do the exact same thing.)
+
+The & is used to convert the cube proc into a block (since .collect! and .map! normally take a block). We’ll do this any time we pass a proc to a method that expects a block.
+
+another ex.
+floats = [1.2, 3.45, 0.91, 7.727, 11.42, 482.911]
+
+round_down = Proc.new { |num| num.floor}
+
+ints = floats.collect(&round_down)
+print ints
+
+#==>[1, 3, 0, 7, 11, 482]
+
+Why Procs?
+Why bother saving our blocks as procs? There are two main advantages:
+
+1. Procs are full-fledged objects, so they have all the powers and abilities of objects. (Blocks do not.)
+2. Unlike blocks, procs can be called over and over without rewriting them. This prevents you from having to retype the contents of your block every time you need to execute a particular bit of code.
+
+example with yield:
+
+def greeter
+  yield 
+end
+
+phrase = Proc.new {puts "Hello there!"}
+
+greeter(&phrase)
+#==> Hello there!
+--
+Calling a proc with a method isn’t too tricky. However, there’s an even easier way.
+
+Unlike blocks, we can call procs directly by using Ruby’s .call method. Check it out!
+
+test = Proc.new { # does something }
+test.call
+# does that something!
+
+--- example of using map with symbols and proc --- 
+
+numbers_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+strings_array = numbers_array.map(&:to_s)
+puts strings_array
+#==> ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+---- lambdas ----
+
+The Ruby Lambda
+Like procs, lambdas are objects. The similarities don’t stop there: with the exception of a bit of syntax and a few behavioral quirks, lambdas are identical to procs.
+
+lambda { puts "Hello!" }
+Is just about the same as
+
+Proc.new { puts "Hello!" }
+
+ex.
+strings = ["leonardo", "donatello", "raphael", "michaelangelo"]
+
+symbolize = lambda { |param| param.to_sym}
+
+symbols = strings.collect(&symbolize)
+print symbols
+#==> [:leonardo, :donatello, :raphael, :michaelangelo]
+
+ex2. 
+
+my_array = ["raindrops", :kettles, "whiskers", :mittens, :packages]
+
+symbol_filter = lambda { |param| param.is_a? Symbol}
+symbols = my_array.select(&symbol_filter)
+puts symbols
+#==> [:kettles, :mittens, :packages]
+
+--- lambdas vs procs ----- 
+Lambdas vs. Procs
+If you’re thinking that procs and lambdas look super similar, that’s because they are! There are only two main differences.
+
+First, a lambda checks the number of arguments passed to it, while a proc does not. This means that a lambda will throw an error if you pass it the wrong number of arguments, whereas a proc will ignore unexpected arguments and assign nil to any that are missing.
+
+Second, when a lambda returns, it passes control back to the calling method; when a proc returns, it does so immediately, without going back to the calling method.
+
+To see how this works, take a look at the code in the editor. Our first method calls a proc; the second calls a lambda.
+
+
+--- review of blocks, procs, lambdas --- 
+BLOCKS, PROCS, AND LAMBDAS
+Quick Review
+All this talk of blocks, procs, and lambdas might have your head spinning. Let’s take a minute to clarify exactly what each one is:
+
+1. A block is just a bit of code between do..end or {}. It’s not an object on its own, but it can be passed to methods like .each or .select.
+2. A proc is a saved block we can use over and over.
+3. A lambda is just like a proc, only it cares about the number of arguments it gets and it returns to its calling method rather than returning immediately.
+
+There are obviously lots of cases in which blocks, procs, and lambdas can do similar work, but the exact circumstances of your program will help you decide which one you want to use.

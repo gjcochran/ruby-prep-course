@@ -1,0 +1,58 @@
+boolean algebra was created in ~1840s (true/false w logic) 
+transistors - input/control wire lets electricity flow 
+in computers, binary ie 0 and 1 represents false and true, respectively 
+transistors can be used to build logic gates (ie NOT, AND, OR)
+
+the number 263 could be represented as 2 100s, 6 10s, and 3 1s (this is base 10, ie decimal, notation)
+binary is base 2
+in binary the number 5 could be represented as 101.. ie 1 4s, 0 2s and 1 1s
+
+each of the 1s(or 0s) is a bit 
+ex. an 8 bit number example is 
+11111111
+which is equal to 255
+because 255 = (128*1)+(64*1)+(32*1)+(16*1)+(8*1)+(4*1)+(2*1)+(1*1)
+
+8 bits = 1 byte
+
+most computers are 32 bit, they use the first bit for negative(1)/positive(0) and the remaining 31 bits to represent a number which means they can represent ~-2BBto +2BB combos, ie 4 billion+ total
+
+computers must store locations in their memory known as addresses
+
+floating point numbers are numbers with decimals
+
+Unicode is the 16-bit universal system created in 1992 so that all computers internationally are interoperable and can understand data from other computers (ex. every letter 'A' has same binary code in Unicode)
+
+The ALU (arithmetic and logic unit) is the thing that does all the computation in a computers
+two units in one
+the arithmetic unit is responsible for all addition and subtraction plus a bunch of other mathematical operations
+... operations supported below for basic ALU processors
+
+add
+add with carry
+subtract
+subtract with borrow
+negate
+increment
+decrement
+pass through
+
+the logic unit performs logic units like and, or, not, and testing if an output is negative
+
+some memory types
+registers or addresses
+random access memory (short term or working memory)
+persistent state memory
+
+machine language or machine code is the binary code that machine hardware reads
+programmers would write pseudocode in order to determine how to turn that into binary/machine code 
+
+an assemblly converts languages to machine code, but is limited because is 1:1 with machine code
+vs a higher-level programming language uses a compiler so that programmers didnt have to think about how their program would convert to machine code, as that would happen under the hood (compiler expands into machine code)
+
+
+
+
+
+
+
